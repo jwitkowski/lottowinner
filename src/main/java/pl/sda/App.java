@@ -5,6 +5,7 @@ import com.google.gson.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pl.sda.model.GameType;
 import pl.sda.model.Games;
 
 import java.io.IOException;
@@ -24,13 +25,19 @@ public class App {
                         return LocalDateTime.parse(json.getAsString(), formatter);
                     }
                 })
+                .registerTypeAdapter(GameType.class, new JsonDeserializer<GameType>() {
+                    @Override
+                    public GameType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+                        return GameType.getTypeByName(json.getAsString());
+                    }
+                })
                 .create();
 
 
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Lotto&index=1&size=150&sort=drawDate&order=DESC")
+                .url("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Szybkie600&index=1&size=150&sort=drawDate&order=DESC")
                 .build();
 
         Response response = client.newCall(request).execute();

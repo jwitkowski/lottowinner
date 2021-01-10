@@ -18,10 +18,10 @@ public class Result {
     private int drawSystemId;
     @SerializedName("gameType")
     @Expose
-    private String gameType;
+    private GameType gameType;
     @SerializedName("resultsJson")
     @Expose
-    private List<Integer> resultsJson = new ArrayList<Integer>();
+    private List<Integer> numbers = new ArrayList<>();
     @SerializedName("specialResults")
     @Expose
     private List<Object> specialResults = new ArrayList<Object>();
@@ -42,20 +42,20 @@ public class Result {
         this.drawSystemId = drawSystemId;
     }
 
-    public String getGameType() {
+    public GameType getGameType() {
         return gameType;
     }
 
-    public void setGameType(String gameType) {
+    public void setGameType(GameType gameType) {
         this.gameType = gameType;
     }
 
-    public List<Integer> getResultsJson() {
-        return resultsJson;
+    public List<Integer> getNumbers() {
+        return numbers;
     }
 
-    public void setResultsJson(List<Integer> resultsJson) {
-        this.resultsJson = resultsJson;
+    public void setNumbers(List<Integer> numbers) {
+        this.numbers = numbers;
     }
 
     public List<Object> getSpecialResults() {

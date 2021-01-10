@@ -17,7 +17,7 @@ public class Item {
     private LocalDateTime drawDate;
     @SerializedName("gameType")
     @Expose
-    private String gameType;
+    private GameType gameType;
     @SerializedName("results")
     @Expose
     private List<Result> results = new ArrayList<Result>();
@@ -41,11 +41,11 @@ public class Item {
         this.drawDate = drawDate;
     }
 
-    public String getGameType() {
+    public GameType getGameType() {
         return gameType;
     }
 
-    public void setGameType(String gameType) {
+    public void setGameType(GameType gameType) {
         this.gameType = gameType;
     }
 
