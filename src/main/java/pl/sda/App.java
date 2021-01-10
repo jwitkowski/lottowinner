@@ -2,43 +2,33 @@ package pl.sda;
 
 
 import com.google.gson.*;
+import okhttp3.OkHttp;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import pl.sda.model.GameType;
 import pl.sda.model.Games;
+import pl.sda.model.Order;
+import pl.sda.network.HttpClient;
+import pl.sda.network.RequestBuilder;
+import pl.sda.utils.GsonProvider;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class App {
 
     public static void main(String[] args) throws IOException {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new JsonDeserializer<LocalDateTime>() {
-                    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
-                    @Override
-                    public LocalDateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                        return LocalDateTime.parse(json.getAsString(), formatter);
-                    }
-                })
-                .registerTypeAdapter(GameType.class, new JsonDeserializer<GameType>() {
-                    @Override
-                    public GameType deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-                        return GameType.getTypeByName(json.getAsString());
-                    }
-                })
-                .create();
+        Gson gson = GsonProvider.SINGLETON.getGson();
 
+        OkHttpClient client = HttpClient.INSTANCE.getClient();
 
-        OkHttpClient client = new OkHttpClient();
-
-        Request request = new Request.Builder()
-                .url("https://www.lotto.pl/api/lotteries/draw-results/by-gametype?game=Szybkie600&index=1&size=150&sort=drawDate&order=DESC")
+        Request request = new RequestBuilder(GameType.LOTTO)
+                .page(1)
+                .fetchCount(10)
+                .order(Order.ASC)
                 .build();
+
 
         Response response = client.newCall(request).execute();
         String stringresposne = response.body().string();
