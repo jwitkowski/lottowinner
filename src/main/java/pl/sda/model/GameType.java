@@ -1,14 +1,19 @@
 package pl.sda.model;
 
 public enum GameType {
-    LOTTO("Lotto", 6), MINI_LOTTO("MiniLotto", 5), KASKADA("Kaskada", 12), SZYBKIE_600("Szybkie600", 6);
+    LOTTO("Lotto", 6, 49),
+    MINI_LOTTO("MiniLotto", 5, 42),
+    KASKADA("Kaskada", 12, 24),
+    SZYBKIE_600("Szybkie600", 6, 32);
 
     private final String name;
     private final int maxNumberCount;
+    private final int range;
 
-    GameType(String name, int maxNumberCount) {
+    GameType(String name, int maxNumberCount, int range) {
         this.name = name;
         this.maxNumberCount = maxNumberCount;
+        this.range = range;
     }
 
     public String getName() {
@@ -17,6 +22,10 @@ public enum GameType {
 
     public int getMaxNumberCount() {
         return maxNumberCount;
+    }
+
+    public int getRange() {
+        return range;
     }
 
     public static GameType getTypeByName(String searchingName) {
