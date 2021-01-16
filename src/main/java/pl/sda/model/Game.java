@@ -25,4 +25,13 @@ public class Game {
     public List<Integer> getNumbers() {
         return numbers;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "type=" + type +
+                ", dateTime=" + dateTime +
+                ", numbers=" + numbers +
+                '}';
+    }
 }

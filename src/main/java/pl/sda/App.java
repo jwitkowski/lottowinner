@@ -1,27 +1,23 @@
 package pl.sda;
 
 
-import pl.sda.checker.Checker;
-import pl.sda.checker.NumberChecker;
-import pl.sda.input.*;
 import pl.sda.model.Game;
+import pl.sda.model.GameType;
 import pl.sda.network.GameApi;
 import pl.sda.network.LottoGameApi;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 public class App {
 
     public static void main(String[] args) throws IOException {
-        MyScanner scanner = new MyScanner();
-        Input userInput = new UserInput(scanner, new DefaultTypeProvider(scanner));
-        InputResult inputResult = userInput.getInputResults();
-
+        LocalDateTime searchDate = LocalDateTime.of(2019, Month.JANUARY, 5, 0, 0);
         GameApi api = new LottoGameApi();
-        Game game = api.getLastGame(inputResult.getType());
+        Game game = api.getGameForDate(GameType.LOTTO, searchDate);
 
-        Checker numberChecker = new NumberChecker();
-        numberChecker.check(inputResult.getNumbers(), game.getNumbers());
+        System.out.println(game);
     }
 
 }
