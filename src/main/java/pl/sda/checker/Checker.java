@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Checker {
 
-    List<Integer> check(List<Integer> myNumbers, List<Integer> wonNumbers);
+    List<Integer> check(List<Integer> myNumbers, List<Integer> wonNumbers) throws IllegalStateException;
 
 }
