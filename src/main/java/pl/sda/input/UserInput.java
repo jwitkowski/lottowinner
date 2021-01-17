@@ -27,13 +27,7 @@ public class UserInput implements Input {
             String numAsString = scanner.next();
             int newNumber = 0;
 
-            try {
-                newNumber = Integer.parseInt(numAsString);
-            } catch (NumberFormatException e) {
-                System.out.println("to nie jest liczba");
-                continue;
-            }
-
+            newNumber = numberValidator.isItANumber(newNumber, numAsString);
 
             if (myNumbers.contains(newNumber)) {
                 System.out.println("taka licza juz zostala wprowadzona");

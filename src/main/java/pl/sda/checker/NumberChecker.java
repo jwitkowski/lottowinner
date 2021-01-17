@@ -19,7 +19,7 @@ public class NumberChecker implements Checker {
 
         for (Integer myNumber : myNumbers) {
             for (Integer wonNumber : wonNumbers) {
-                if (myNumber.equals(wonNumber)) {
+                if (myNumber != null && myNumber.equals(wonNumber)) {
                     hitNumbers.add(myNumber);
                 }
             }

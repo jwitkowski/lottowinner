@@ -2,12 +2,12 @@ package pl.sda.input;
 
 import pl.sda.model.GameType;
 
-public class NumberValidatorOmolyth {
+public class NumberValidatorMonolith {
     private final GameType gameType;
     private final Integer[] validNumbers;
 
 
-    public NumberValidatorOmolyth(GameType gameType) {
+    public NumberValidatorMonolith(GameType gameType) {
         this.gameType = gameType;
         this.validNumbers = new Integer[gameType.getMaxNumberCount()];
     }
@@ -46,6 +46,10 @@ public class NumberValidatorOmolyth {
                 throw new IllegalArgumentException("ta liczba juz zostala dodana");
             }
         }
+    }
+
+    public void clear(int position){
+        validNumbers[position] = null;
     }
 
     public Integer[] getValidNumbers() {
