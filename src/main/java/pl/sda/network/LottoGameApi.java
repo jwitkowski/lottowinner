@@ -9,24 +9,26 @@ import pl.sda.model.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
 public class LottoGameApi implements GameApi {
 
     private final OkHttpClient client;
     private final Gson gson;
+    private final PageProvider pageProvider;
 
     public LottoGameApi() {
         this.client = OkHttp.INSTANCE.getClient();
         this.gson = GsonProvider.SINGLETON.getGson();
+        this.pageProvider = new PageProvider(LocalDateTime.now());
     }
 
     @Override
     public Game getGameForDate(GameType type, LocalDateTime date) throws IOException {
-        int page = PageProvider.getPage(type, date);
+        int page = pageProvider.getPage(type, date);
         Request request = new RequestBuilder(type)
                 .page(page)
                 .fetchCount(1)
+                .order(page < 0 ? Order.ASC : Order.DESC)
                 .build();
 
         Response response = client.newCall(request).execute();
